@@ -4,8 +4,8 @@
   "description": "Building task manager application",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "backend": "nodemon server.js"
+    "start": "node backend/server.js",
+    "backend": "nodemon backend/server.js"
   },
   "repository": {
     "type": "git",
