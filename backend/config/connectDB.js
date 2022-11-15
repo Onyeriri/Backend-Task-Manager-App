@@ -13,3 +13,14 @@ const connectDB = async () => {
 };
 
 module.exports = connectDB;
+
+// const startSever = async () => {
+//   try {
+//     await connectDB();
+
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+// startSever();
