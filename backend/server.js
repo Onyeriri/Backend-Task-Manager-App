@@ -5,6 +5,9 @@ const mongoose = require("mongoose");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// middleware
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.send("<h2>Welcome to home page...</h2>");
 });
