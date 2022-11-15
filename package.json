@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Onyeriri/Backend-Task-Manager-App#readme",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "nodemon": "^2.0.20"
   }
