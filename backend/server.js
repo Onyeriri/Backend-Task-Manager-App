@@ -9,6 +9,12 @@ app.get("/", (req, res) => {
   res.send("<h2>Welcome to home page...</h2>");
 });
 
+// create a task
+app.post("/api/tasks", async (req, res) => {
+  console.log(req.body);
+  res.send("<h2>Task creation page...</h2>");
+});
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() =>
