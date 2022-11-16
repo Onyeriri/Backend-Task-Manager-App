@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(tasksRoute);
+app.use("/api/tasks", tasksRoute);
 
 mongoose
   .connect(process.env.MONGO_URI)
