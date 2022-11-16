@@ -10,16 +10,6 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// get all task
-app.get("/", async (req, res) => {
-  try {
-    const task = await Task.find();
-    res.status(200).json(task);
-  } catch (error) {
-    res.status(5000).json({ msg: error.message });
-  }
-});
-
 // create a task
 app.post("/api/tasks", async (req, res) => {
   try {
@@ -29,6 +19,16 @@ app.post("/api/tasks", async (req, res) => {
     res.status(500).json({
       msg: error.message,
     });
+  }
+});
+
+// get all task
+app.get("/api/tasks", async (req, res) => {
+  try {
+    const task = await Task.find();
+    res.status(200).json(task);
+  } catch (error) {
+    res.status(5000).json({ msg: error.message });
   }
 });
 
