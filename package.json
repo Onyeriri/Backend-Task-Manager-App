@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node backend/server.js",
-    "backend": "nodemon backend/server.js"
+    "backend": "nodemon backend/server.js",
+    "frontend": "npm start --prefix frontend"
   },
   "repository": {
     "type": "git",
