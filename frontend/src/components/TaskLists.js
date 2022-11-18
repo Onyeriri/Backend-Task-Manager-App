@@ -1,5 +1,12 @@
+import TaskForm from "./TaskForm";
+
 const TaskLists = () => {
-  return <div>TaskLists</div>;
+  return (
+    <div>
+      <h2>Task Manager</h2>
+      <TaskForm />
+    </div>
+  );
 };
 
 export default TaskLists;
