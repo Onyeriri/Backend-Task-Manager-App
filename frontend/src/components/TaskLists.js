@@ -16,6 +16,7 @@ const TaskLists = () => {
   const [completedTasks, setCompletedTasks] = useState([]);
   const [totalTasks, setTotalTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [value, setValue] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -66,6 +67,17 @@ const TaskLists = () => {
     }
   };
 
+  const getSingleTask = async (id, e) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/tasks/${id}`);
+      setFormData(response.data);
+      // getTasks();
+      // toast.success("Task deleted");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   const { name } = formData;
 
   return (
@@ -101,6 +113,7 @@ const TaskLists = () => {
                 task={task}
                 index={index}
                 handleDelete={handleDelete}
+                getSingleTask={getSingleTask}
               />
             );
           })}
