@@ -48,7 +48,19 @@ const TaskLists = () => {
     try {
       await axios.post(`${URL}/api/tasks`, formData);
       setFormData({ ...formData, name: "" });
+      getTasks();
       toast.success("Data successfully registered");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    // const deleteTask = e.currentTarget.id;
+    try {
+      await axios.delete(`http://localhost:5000/api/tasks/${id}`);
+      getTasks();
+      toast.success("Task deleted");
     } catch (error) {
       toast.error(error.message);
     }
@@ -83,7 +95,14 @@ const TaskLists = () => {
       ) : (
         <>
           {tasks.map((task, index) => {
-            return <Task key={index} task={task} id={index} />;
+            return (
+              <Task
+                key={index}
+                task={task}
+                index={index}
+                handleDelete={handleDelete}
+              />
+            );
           })}
         </>
       )}
