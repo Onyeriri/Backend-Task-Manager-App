@@ -13,10 +13,11 @@ const TaskLists = () => {
   });
 
   const [tasks, setTasks] = useState([]);
-  const [completedTasks, setCompletedTasks] = useState([]);
+  const [completedTasks, setCompletedTasks] = useState(0);
   const [totalTasks, setTotalTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
   const [taskID, setTaskID] = useState("");
 
   const handleInputChange = (e) => {
@@ -60,7 +61,7 @@ const TaskLists = () => {
   const handleDelete = async (id) => {
     // const deleteTask = e.currentTarget.id;
     try {
-      await axios.delete(`http://localhost:5000/api/tasks/${id}`);
+      await axios.delete(`${URL}/api/tasks/${id}`);
       getTasks();
       toast.success("Task deleted");
     } catch (error) {
@@ -74,12 +75,45 @@ const TaskLists = () => {
     setIsEditing(true);
   };
 
+  const { name } = formData;
+
   const updateTask = async () => {
+    if (name === "") {
+      return toast.error("Input field cannot be empty");
+    }
+
     try {
-    } catch (error) {}
+      await axios.put(`${URL}/api/tasks/${taskID}`, formData);
+      setFormData(...formData, {
+        name: "",
+      });
+      setIsEditing(false);
+      setIsCompleted(false);
+      getTasks();
+      toast.success("Task edited successfully");
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
-  const { name } = formData;
+  const taskCompleted = async (task) => {
+    const newFormData = {
+      name: task.name,
+      completed: true,
+    };
+    try {
+      await axios.put(`${URL}/api/tasks/${task._id}`, newFormData);
+      setIsCompleted(true);
+      getTasks();
+      toast.success("Task marked as completed");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  let count = tasks.filter((task) => task.completed === true);
+
+  console.log(count.length);
 
   return (
     <div>
@@ -93,10 +127,10 @@ const TaskLists = () => {
       />
       <div className="--flex-between --pb">
         <p>
-          <b>Total Tasks:</b> 0
+          <b>Total Tasks:</b> {tasks.length}
         </p>
         <p>
-          <b>Completed Tasks:</b> 0
+          <b>Completed Tasks:</b> {count.length}
         </p>
       </div>
       <hr />
@@ -117,6 +151,7 @@ const TaskLists = () => {
                 index={index}
                 handleDelete={handleDelete}
                 getSingleTask={getSingleTask}
+                taskCompleted={taskCompleted}
               />
             );
           })}
