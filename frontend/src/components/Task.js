@@ -10,7 +10,7 @@ const Task = ({ task, index, handleDelete, getSingleTask }) => {
       </p>
       <div className="task-icons">
         <FaCheckDouble color="green" />
-        <FaEdit color="purple" onClick={(e) => getSingleTask(_id, e)} />
+        <FaEdit color="purple" onClick={() => getSingleTask(task)} />
         <FaRegTrashAlt onClick={() => handleDelete(_id)} color="red" />
       </div>
     </div>

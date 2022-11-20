@@ -16,7 +16,8 @@ const TaskLists = () => {
   const [completedTasks, setCompletedTasks] = useState([]);
   const [totalTasks, setTotalTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [value, setValue] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [taskID, setTaskID] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -67,15 +68,15 @@ const TaskLists = () => {
     }
   };
 
-  const getSingleTask = async (id, e) => {
+  const getSingleTask = async (task) => {
+    setFormData({ name: task.name, completed: false });
+    setTaskID(task._id);
+    setIsEditing(true);
+  };
+
+  const updateTask = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/tasks/${id}`);
-      setFormData(response.data);
-      // getTasks();
-      // toast.success("Task deleted");
-    } catch (error) {
-      toast.error(error.message);
-    }
+    } catch (error) {}
   };
 
   const { name } = formData;
@@ -87,6 +88,8 @@ const TaskLists = () => {
         name={name}
         handleInputChange={handleInputChange}
         createTask={createTask}
+        isEditing={isEditing}
+        updateTask={updateTask}
       />
       <div className="--flex-between --pb">
         <p>
